@@ -2,7 +2,9 @@ package com.avinash.taskkotlin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.Response
@@ -13,7 +15,7 @@ import org.json.JSONObject
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var linearLayoutManager: GridLayoutManager
     private lateinit var adapter: ProductListAdapter
 
 
@@ -22,12 +24,13 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        progresBar.visibility = View.VISIBLE
         initRecyclerView()
         getDataFromAPI()
     }
 
     private fun initRecyclerView() {
-        linearLayoutManager = LinearLayoutManager(this)
+        linearLayoutManager = GridLayoutManager(this,2)
         recyclerView.layoutManager = linearLayoutManager
         adapter = ProductListAdapter(arrayList,this)
         recyclerView.adapter = adapter
@@ -46,6 +49,7 @@ class HomeActivity : AppCompatActivity() {
                     arrayList.add(product)
                 }
                 adapter.notifyDataSetChanged()
+                progresBar.visibility = View.GONE
             },
             Response.ErrorListener { error ->
                 Toast.makeText(this,error.toString(), Toast.LENGTH_LONG).show();
