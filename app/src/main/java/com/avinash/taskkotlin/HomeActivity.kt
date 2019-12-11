@@ -34,8 +34,13 @@ class HomeActivity : AppCompatActivity() {
         recyclerView.layoutManager = linearLayoutManager
         adapter = ProductListAdapter(arrayList,this, ProductListAdapter.ProductInterFace { position ->
 
-            val intent = Intent(this,CartActivity::class.java)
+            val intent = Intent(this,ViewProduct::class.java)
+            intent.putExtra("name",arrayList[position].getName())
+            intent.putExtra("price",arrayList[position].getPrice())
+            intent.putExtra("description",arrayList[position].getDescription())
+            intent.putExtra("imageUrl",arrayList[position].getImageUrl())
             startActivity(intent)
+            overridePendingTransition(0,0)
         })
         recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()

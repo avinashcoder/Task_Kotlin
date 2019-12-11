@@ -3,6 +3,9 @@ package com.avinash.taskkotlin;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 public class Product {
     String imageUrl, name, price, description, productId;
     int quantity;
@@ -11,13 +14,23 @@ public class Product {
         try {
             this.imageUrl = jsonObject.getString("image");
             this.name = jsonObject.getString("name");
-            this.price = jsonObject.getString("price");
+            this.price = convertUTF8ToString(jsonObject.getString("price"));
             this.quantity = jsonObject.getInt("quantity");
             this.description = jsonObject.getString("description");
             this.productId = jsonObject.getString("id");
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String convertUTF8ToString(String s) {
+        String out = null;
+        try {
+            out = new String(s.getBytes("ISO-8859-1"), "UTF-8");
+        } catch (java.io.UnsupportedEncodingException e) {
+            return null;
+        }
+        return out;
     }
 
     public String getImageUrl() {

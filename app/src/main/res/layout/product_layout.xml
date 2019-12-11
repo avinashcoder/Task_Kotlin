@@ -4,11 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
+    android:layout_marginTop="6dp"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:orientation="vertical">
 
@@ -17,7 +18,7 @@
         <ImageView
             android:id="@+id/productImage"
             android:layout_gravity="center"
-            android:layout_height="160dp"
+            android:layout_height="175dp"
             android:layout_width="match_parent"
             android:scaleType="fitXY" />
 
@@ -27,20 +28,19 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
-            android:maxLength="14"
             android:maxLines="1"
-            android:text="Bat"
+            android:text="Name"
             android:textColor="#000"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/product_price"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
-            android:text="10"
-            android:textColor="#AAAAAA"
-            android:textSize="12sp" />
+            android:text="100"
+            android:textColor="#000"
+            android:textSize="14sp" />
 
     </LinearLayout>
 </LinearLayout>
