@@ -1,11 +1,11 @@
 package com.avinash.taskkotlin
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
@@ -19,8 +19,8 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var adapter: ProductListAdapter
 
 
-    var arrayList : ArrayList<Product> = ArrayList()
-    var url : String = "http://www.mocky.io/v2/5def7b172f000063008e0aa2"// "http://dummy.restapiexample.com/api/v1/employees"//
+    private var arrayList : ArrayList<Product> = ArrayList()
+    private var url : String = "http://www.mocky.io/v2/5def7b172f000063008e0aa2"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -32,9 +32,18 @@ class HomeActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         linearLayoutManager = GridLayoutManager(this,2)
         recyclerView.layoutManager = linearLayoutManager
-        adapter = ProductListAdapter(arrayList,this)
+        adapter = ProductListAdapter(arrayList,this, ProductListAdapter.ProductInterFace { position ->
+
+            val intent = Intent(this,CartActivity::class.java)
+            startActivity(intent)
+        })
         recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
+
+        cartMenu.setOnClickListener {
+            val intent = Intent(this,CartActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun getDataFromAPI() {
@@ -44,7 +53,7 @@ class HomeActivity : AppCompatActivity() {
             Response.Listener<String> { response ->
                 val jsonObjectResponse = JSONObject(response)
                 val jsonArrayData = jsonObjectResponse.getJSONArray("products")
-                for (i in 0 until jsonArrayData!!.length()) {
+                for (i in 0 until jsonArrayData.length()) {
                     val product = Product(jsonArrayData.getJSONObject(i))
                     arrayList.add(product)
                 }
@@ -52,7 +61,7 @@ class HomeActivity : AppCompatActivity() {
                 progresBar.visibility = View.GONE
             },
             Response.ErrorListener { error ->
-                Toast.makeText(this,error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"Something happen wrong, Please try later", Toast.LENGTH_LONG).show()
             })
         queue.add(stringRequest)
     }

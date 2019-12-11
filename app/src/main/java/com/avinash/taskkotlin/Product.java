@@ -4,7 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Product {
-    String imageUrl, name, price, description;
+    String imageUrl, name, price, description, productId;
     int quantity;
 
     public Product(JSONObject jsonObject) {
@@ -14,6 +14,7 @@ public class Product {
             this.price = jsonObject.getString("price");
             this.quantity = jsonObject.getInt("quantity");
             this.description = jsonObject.getString("description");
+            this.productId = jsonObject.getString("id");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -57,5 +58,13 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 }

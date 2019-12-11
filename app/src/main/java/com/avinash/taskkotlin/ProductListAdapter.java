@@ -1,6 +1,7 @@
 package com.avinash.taskkotlin;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +22,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     private ProductInterFace productInterFace;
 
-    ProductListAdapter(ArrayList<Product> productsList, Context context) {
+    ProductListAdapter(ArrayList<Product> productsList, Context context, ProductInterFace productInterFace) {
         this.mContext = context;
         this.productsList = productsList;
-        //this.productInterFace = productInterFace;
+        this.productInterFace = productInterFace;
 
     }
 
@@ -42,7 +43,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         holder.productName.setText(product.getName());
 
-        holder.productPrice.setText(product.getPrice());
+        holder.productPrice.setText(Html.fromHtml(product.getPrice()));
 
         Glide
                 .with(mContext)
@@ -59,7 +60,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
 
     interface ProductInterFace {
-        void viewProduct(int Position, View image);
+        void viewProduct(int position);
     }
 
     public class ProductsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -87,7 +88,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
                 if (view == productImage) {
 
-                    productInterFace.viewProduct(getAdapterPosition(), productImage);
+                    productInterFace.viewProduct(getAdapterPosition());
                 }
             }
         }
