@@ -12,6 +12,7 @@ class CartActivity : AppCompatActivity() {
         setContentView(R.layout.activity_cart)
 
         val back = findViewById<FrameLayout>(R.id.back)
+
         back.setOnClickListener(View.OnClickListener {
             this@CartActivity.finish()
         })
