@@ -12,10 +12,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         Handler().postDelayed({
-            /* Create an Intent that will start the Menu-Activity. */
             val mainIntent = Intent(this, HomeActivity::class.java)
             startActivity(mainIntent)
             finish()
-        }, 3000)
+        }, 1500)
     }
 }

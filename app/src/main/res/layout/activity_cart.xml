@@ -38,13 +38,14 @@
                 </FrameLayout>
 
                 <TextView
+                    android:id="@+id/myCartHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
                     android:layout_marginEnd="40dp"
                     android:maxLength="30"
-                    android:text="Your cart"
+                    android:text="My cart"
                     android:textColor="#FFF"
                     android:textSize="18sp" />
 
@@ -52,16 +53,52 @@
 
         </FrameLayout>
 
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:paddingBottom="60dp"/>
+
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+
     </LinearLayout>
 
     <TextView
+        android:id="@+id/no_items"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="No item in your cart, or your cart is unavailable now.\n Please try later\n !! Coming Soon !!"
+        android:text="@string/no_items"
         android:textColor="#232323"
         android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/proceed_to_checkout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:text="Proceed to chekout"
+        android:textColor="#FFF"
+        android:background="@color/colorPrimaryDark"
+        android:textSize="18sp" />
 
 
 </FrameLayout>

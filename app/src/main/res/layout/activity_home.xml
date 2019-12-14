@@ -43,14 +43,31 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/cartMenu"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:padding="7dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/cart"
-            android:layout_gravity="end"/>
+        <FrameLayout
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end">
+
+            <ImageView
+                android:id="@+id/cartMenu"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:padding="7dp"
+                android:src="@drawable/cart"/>
+
+            <TextView
+                android:id="@+id/cart_item_count"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="end|top"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:textSize="10sp"
+                android:textColor="#FFF"
+                android:background="@drawable/round_shape"
+                android:backgroundTint="#000"
+                android:text="1"/>
+        </FrameLayout>
 
     </FrameLayout>
 

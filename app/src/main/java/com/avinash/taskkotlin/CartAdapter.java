@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductsViewHolder> {
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
 
     private Context mContext;
@@ -24,7 +24,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     private ProductInterFace productInterFace;
 
-    ProductListAdapter(ArrayList<Product> productsList, Context context, ProductInterFace productInterFace) {
+    CartAdapter(ArrayList<Product> productsList, Context context, CartAdapter.ProductInterFace productInterFace) {
         this.mContext = context;
         this.productsList = productsList;
         this.productInterFace = productInterFace;
@@ -33,20 +33,24 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     @NotNull
     @Override
-    public ProductsViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
+    public CartAdapter.ViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        View view = inflater.inflate(R.layout.product_layout, parent, false);
-        return new ProductsViewHolder(view);
+        View view = inflater.inflate(R.layout.cart_item_layout, parent, false);
+        return new CartAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ProductsViewHolder holder, int position) {
+    public void onBindViewHolder(CartAdapter.ViewHolder holder, int position) {
 
         Product product = productsList.get(position);
 
         holder.productName.setText(product.getName());
 
         holder.productPrice.setText(Html.fromHtml(product.getPrice()));
+
+        holder.quantity.setText(String.valueOf(product.getQuantity()));
+
+        holder.description.setText(product.getDescription());
 
         Glide
                 .with(mContext)
@@ -63,22 +67,34 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
 
     interface ProductInterFace {
-        void viewProduct(int position);
+
+        void removeItem(int adapterPosition);
+
+        void increaseQty(int position);
+
+        void decreaseQty(int position);
     }
 
-    public class ProductsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         //TextView showLive;
-        TextView productName, productPrice;
+        TextView productName, productPrice, quantity, description, removeItem, increaseQty, decreaseQty;
         ImageView productImage;
 
-        ProductsViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             productPrice = view.findViewById(R.id.product_price);
             productName = view.findViewById(R.id.product_name);
-
             productImage = view.findViewById(R.id.productImage);
+            quantity = view.findViewById(R.id.quantity);
+            description = view.findViewById(R.id.product_description);
+            removeItem = view.findViewById(R.id.removeItem);
+            increaseQty = view.findViewById(R.id.increaseQty);
+            decreaseQty = view.findViewById(R.id.decreaseQty);
 
             productImage.setOnClickListener(this);
+            removeItem.setOnClickListener(this);
+            increaseQty.setOnClickListener(this);
+            decreaseQty.setOnClickListener(this);
         }
 
         @Override
@@ -88,9 +104,15 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
             if (productsList.size() > position) {
 
-                if (view == productImage) {
+                if (view == removeItem) {
+                    productInterFace.removeItem(position);
+                }
+                if(view == increaseQty){
+                    productInterFace.increaseQty(position);
+                }
 
-                    productInterFace.viewProduct(getAdapterPosition());
+                if(view == decreaseQty){
+                    productInterFace.decreaseQty(position);
                 }
             }
         }

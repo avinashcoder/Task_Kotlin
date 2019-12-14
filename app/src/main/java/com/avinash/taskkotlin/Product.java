@@ -4,8 +4,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Product {
-    String imageUrl, name, price, description, productId;
-    int quantity;
+    private String imageUrl, name, price, description, productId;
+    private int quantity;
 
     public Product(JSONObject jsonObject) {
         try {
@@ -20,8 +20,17 @@ public class Product {
         }
     }
 
-    public static String convertUTF8ToString(String s) {
-        String out = null;
+    public Product(String imageUrl, String name, String price, String description, String productId, int quantity) {
+        this.imageUrl = imageUrl;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.productId = productId;
+        this.quantity = quantity;
+    }
+
+    private static String convertUTF8ToString(String s) {
+        String out;
         try {
             out = new String(s.getBytes("ISO-8859-1"), "UTF-8");
         } catch (java.io.UnsupportedEncodingException e) {
